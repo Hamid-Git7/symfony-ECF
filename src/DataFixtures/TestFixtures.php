@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Livre;
 use App\Entity\Genre;
 use App\Entity\Auteur;
+use App\Entity\Emprunteur;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
@@ -37,6 +38,7 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
         $this->loadAuteurs();
         $this->loadGenres();
         $this->loadLivres();
+        $this->loadEmprunteurs();
     }
 
     public function loadAuteurs(): Void
@@ -205,6 +207,68 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
 
 
             $this->manager->persist($livre);
+        }
+
+        $this->manager->flush();
+    }
+
+    public function loadEmprunteurs(): void
+    {
+        // données static
+
+        $datas = [
+            [
+                'email' => 'foo.foo@example.com',
+                'roles' => ['ROLE_USER'],
+                'password' => '123',
+                'enabled' => true,
+
+                'nom' => 'foo',
+                'prenom' => 'foo',
+                'tel' => '123456789',
+            ],
+            [
+                'email' => 'bar.bar@example.com',
+                'roles' => ['ROLE_USER'],
+                'password' => '123',
+                'enabled' => false,
+
+                'nom' => 'bar',
+                'prenom' => 'bar',
+                'tel' => '123456789',
+            ],
+            [
+                'email' => 'baz.baz@example.com',
+                'roles' => ['ROLE_USER'],
+                'password' => '123',
+                'enabled' => true,
+
+                'nom' => 'baz',
+                'prenom' => 'baz',
+                'tel' => '123456789',
+            ]
+        ];
+
+        foreach ($datas as $data) {
+            $user = new User();
+            $user->setEmail($data['email']);
+            $password = $this->hasher->hashPassword($user, $data['password']);
+            $user->setPassword($password);
+            $user->setRoles($data['roles']);
+            $user->setEnabled($data['enabled']);
+
+            $this->manager->persist($user);
+
+            $emprunteur = new Emprunteur();
+
+            $emprunteur->setNom($data['nom']);
+            $emprunteur->setPrenom($data['prenom']);
+            $emprunteur->setTel($data['tel']);
+
+            $emprunteur->setUser($user);
+
+            $this->manager->persist($emprunteur);
+
         }
 
         $this->manager->flush();
