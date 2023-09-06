@@ -316,16 +316,44 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
         }
 
         $this->manager->flush();
+
+        // données dynamiques
+
+        for ($i = 0; $i < 10; $i++ ) {
+            $user = new User();
+            $user->setEmail($this->faker->unique()->safeEmail());
+            $password = $this->hasher->hashPassword($user, '123');
+            $user->setPassword($password);
+            $user->setRoles(['ROLE_USER']);
+
+            $user->setEnabled($this->faker->boolean());
+
+            $this->manager->persist($user);
+
+            $emprunteur = new Emprunteur();
+            $emprunteur->setNom($this->faker->lastName());
+            $emprunteur->setPrenom($this->faker->FirstName());
+            $emprunteur->setTel($this->faker->phoneNumber());
+
+            $emprunteur->setUser($user);
+
+            $this->manager->persist($emprunteur);
+
+        }
+
+        $this->manager->flush();
     }
 
     public function loadEmprunts(): void
     {
         $repositoryLivre = $this->manager->getRepository(Livre::class);
+        $livres = $repositoryLivre->findAll();
         $livre1 = $repositoryLivre->find(1);
         $livre2 = $repositoryLivre->find(2);
         $livre3 = $repositoryLivre->find(3);
 
         $repositoryEmprunteur = $this->manager->getRepository(Emprunteur::class);
+        $emprunteurs = $repositoryEmprunteur->findAll();
         $emprunteur1 = $repositoryEmprunteur->find(1);
         $emprunteur2 = $repositoryEmprunteur->find(2);
         $emprunteur3 = $repositoryEmprunteur->find(3);
@@ -367,5 +395,29 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
         }
 
         $this->manager->flush();
+
+        // données dynamiques
+
+        for ($i = 0; $i < 10; $i++ ) {
+            $emprunt = new Emprunt();
+
+            $dateEmprunt = $this->faker->dateTimeBetween('-1 year', '-6 months');
+            $emprunt->setDateEmprunt($dateEmprunt);
+
+            $dateRetour = $this->faker->optional(0.5)->dateTimeBetween('-6 months', 'now');
+            $emprunt->setDateRetour($dateRetour);
+
+            $livre = $this->faker->randomElement($livres);
+            $emprunt->setLivre($livre);
+
+            $emprunteur = $this->faker->randomElement($emprunteurs);
+            $emprunt->setEmprunteur($emprunteur);
+
+            $this->manager->persist($emprunt);
+
+        }
+
+        $this->manager->flush();
+
     }
 }
