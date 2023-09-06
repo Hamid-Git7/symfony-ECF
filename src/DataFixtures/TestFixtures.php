@@ -46,7 +46,7 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
 
     public function loadAuteurs(): Void
     {
-        $repository = $this->manager->getRepository(Auteur::class);
+        //$repository = $this->manager->getRepository(Auteur::class);
         
         // données static
 
@@ -225,7 +225,36 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
         }
 
         $this->manager->flush();
+
+        // données dynamiques
+
+        for ($i = 0; $i < 10; $i++) {
+            $livre = new Livre();
+
+            $words = random_int(2, 5);
+            $livre->setTitre($this->faker->unique()->sentence($words));
+
+            $livre->setAnneeEdition($this->faker->optional(0.9)->year());
+
+            $livre->setNombrePages($this->faker->numberBetween(100, 1000));
+
+            $livre->setCodeIsbn($this->faker->unique()->isbn13());
+
+            $auteur = $this->faker->randomElement($auteurs);
+            $livre->setAuteur($auteur);
+
+            $nbGenre = random_int(1, 3);
+            $shorlist = $this->faker->randomElements($genres, $nbGenre);
+            foreach ($shorlist as $genre) {
+                $livre->addGenre($genre);
+            }
+
+            $this->manager->persist($livre);
+        }
+
+        $this->manager->flush();
     }
+        
 
     public function loadEmprunteurs(): void
     {
