@@ -23,6 +23,11 @@ class TestController extends AbstractController
 
         //fonction all user order by email
         $users = $repository->allUsersOrderByMail();
+        $user1 = $repository->find(1);
+        $fooUser = $repository->emailFooFOo();
+        $roles = $repository->roles();
+        $userFalse = $repository->falseEnabled();
+
 
         $title = "test users";
 
@@ -30,6 +35,10 @@ class TestController extends AbstractController
             'controller_name' => 'TestController',
             'title' => $title,
             'users' => $users,
+            'user1' => $user1,
+            'fooUser' => $fooUser,
+            'roles' => $roles,
+            'userFalse' => $userFalse,
         ]);
     }
 }

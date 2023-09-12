@@ -10,4 +10,36 @@
 <p> {{ user.email }} </p>
 {% endfor %}
 
+<h2> les données de l'utilisateur dont l'id est 1</h2>
+
+<p> {{ user1.email }} </p>
+<p> {{ user1.enabled }} </p>
+<p> {{ user1.roles[0] }} </p>
+
+<h2> - les données de l'utilisateur dont l'email est foo.foo@example.com </h2>
+
+{% for user in fooUser %}
+
+<p>  {{user.id}} </p>
+<p>{{user.enabled}} </p>
+<p>{{user.roles[0]}}<p/>
+
+{% endfor %}
+
+<h2> - la liste des utilisateurs dont l'attribut roles contient le mot clé ROLE_USER, triée par ordre alphabétique d'email </h2>
+
+{% for user in roles %}
+
+<p>  {{user.email}} </p>
+
+{% endfor %}
+
+<h2> - la liste des utilisateurs inactifs (c-à-d dont l'attribut enabled est égal à false), triée par ordre alphabétique d'email </h2>
+
+{% for user in userFalse %}
+
+<p> {{user.email}} </p>
+
+{% endfor %}
+
 {% endblock %}
