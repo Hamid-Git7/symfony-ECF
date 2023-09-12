@@ -93,7 +93,6 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
 
     public function loadGenres(): Void
     {
-        $repository = $this->manager->getRepository(Genre::class);
 
         // données static
 
@@ -183,7 +182,7 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
                 'anneeEdition' => 2010,
                 'nombrePages' => 100,
                 'codeIsbn' => '9785786930024',
-                'auteurs' => [$auteur1],
+                'auteurs' => $auteur1,
                 'genres' => [$genres1],
             ],
             [
@@ -191,7 +190,7 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
                 'anneeEdition' => 2011,
                 'nombrePages' => 150,
                 'codeIsbn' => '9783817260935',
-                'auteurs' => [$auteur2],
+                'auteurs' => $auteur2,
                 'genres' => [$genres2],
             ],
             [
@@ -199,7 +198,7 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
                 'anneeEdition' => 2012,
                 'nombrePages' => 200,
                 'codeIsbn' => '9782020493727',
-                'auteurs' => [$auteur3],
+                'auteurs' => $auteur3,
                 'genres' => [$genres3],
             ],
             [
@@ -207,7 +206,7 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
                 'anneeEdition' => 2013,
                 'nombrePages' => 250,
                 'codeIsbn' => '9794059561353',
-                'auteurs' => [$auteur4],
+                'auteurs' => $auteur4,
                 'genres' => [$genres4],
             ],
         ];
@@ -217,7 +216,7 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
             $livre->setAnneeEdition($data['anneeEdition']);
             $livre->setNombrePages($data['nombrePages']);
             $livre->setCodeIsbn($data['codeIsbn']);
-            $livre->setAuteur($data['auteurs'][0]);
+            $livre->setAuteur($data['auteurs']);
             $livre->addGenre($data['genres'][0]);
 
 
@@ -366,21 +365,21 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
             [
                 'dateEmprunt' => new DateTime('2020-02-01 10:00:00'),
                 'dateRetour' => new DateTime('2020-03-01 10:00:00'),
-                'emprunteur' => [$emprunteur1],
-                'livre' => [$livre1],
+                'emprunteur' => $emprunteur1,
+                'livre' => $livre1,
             ],
             [
                 'dateEmprunt' => new DateTime('2020-03-01 10:00:00'),
                 'dateRetour' => new DateTime('2020-04-01 10:00:00'),
-                'emprunteur' => [$emprunteur2],
-                'livre' => [$livre2],
+                'emprunteur' => $emprunteur2,
+                'livre' => $livre2,
                 
             ],            
             [
                 'dateEmprunt' => new DateTime('2020-04-01 10:00:00'),
                 'dateRetour' => null,
-                'emprunteur' => [$emprunteur3],
-                'livre' => [$livre3],
+                'emprunteur' => $emprunteur3,
+                'livre' => $livre3,
             ],
         ];
 
@@ -388,8 +387,8 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
             $emprunt = new Emprunt();
             $emprunt->setDateEmprunt($data['dateEmprunt']);
             $emprunt->setDateRetour($data['dateRetour']);
-            $emprunt->setEmprunteur($data['emprunteur'][0]);
-            $emprunt->setLivre($data['livre'][0]);
+            $emprunt->setEmprunteur($data['emprunteur']);
+            $emprunt->setLivre($data['livre']);
 
             $this->manager->persist($emprunt);
         }
