@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TestController!{% endblock %}
+
+{% block body %}
+
+<h1>{{ title }}</h1>
+
+<h2> - la liste complète de tous les livres, triée par ordre alphabétique de titre </h2>
+
+{% for livre in livres %}
+
+<p>{{livre.titre}} </p>
+
+{% endfor %}
+
+<h2> Les données du livre dont l'id est `1` </h2>
+
+<p>{{ livre1.titre }} </p>
+<p>{{ livre1.anneeEdition }}</p>
+<p>{{ livre1.nombrePages }}</p>
+<p>{{ livre1.codeIsbn }}</p>
+<p>{{ livre1.auteur.nom }}</p>
+<p>{{ livre1.auteur.prenom }}</p>
+
+<h2> la liste des livres dont le titre contient le mot </h2>
+
+{% for livre in titreLorem %}
+
+<p> {{livre.titre}} </p>
+
+{% endfor %}
+
+<h2> La liste des livres dont l'id de l'auteur est `2`, triée par ordre alphabétique de titre </h2>
+
+{% for livre in listeLivre2 %}
+
+<p> {{ livre.titre }} </p>
+
+{% endfor %}
+
+{% for livre in livreGenre %}
+
+<p> {{ livre.titre }} </p>
+
+{% endfor %}
+
+{% endblock %}

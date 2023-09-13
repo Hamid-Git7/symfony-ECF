@@ -42,6 +42,7 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
         $this->loadLivres();
         $this->loadEmprunteurs();
         $this->loadEmprunts();
+
     }
 
     public function loadAuteurs(): Void
@@ -51,6 +52,7 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
         // données static
 
         $datas = [
+
             [
                 'nom' => 'auteur inconnu',
                 'prenom' => 'auteur inconnu'
@@ -67,13 +69,16 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
                 'nom' => 'Moitessier',
                 'prenom' => 'Thomas'
             ],
+
         ];
+
         foreach ($datas as $data) {
             $auteur = new Auteur();
             $auteur->setNom($data['nom']);
             $auteur->setPrenom($data['prenom']);
 
             $this->manager->persist($auteur);
+
         }
 
         $this->manager->flush();
@@ -97,6 +102,7 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
         // données static
 
         $datas = [
+
             [
                 'nom' => 'poésie',
                 'description' => null,
@@ -132,27 +138,33 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
             [
                 'nom' => 'conte',
                 'description' => null,
-            ],            [
+            ],            
+            [
                 'nom' => 'témoignage',
                 'description' => null,
-            ],            [
+            ],            
+            [
                 'nom' => 'théâtre',
                 'description' => null,
             ],
             [
                 'nom' => 'essai',
                 'description' => null,
-            ],            [
+            ],            
+            [
                 'nom' => 'journal intime',
                 'description' => null,
             ],
+
         ];
+
         foreach ($datas as $data) {
             $genre = new Genre();
             $genre->setNom($data['nom']);
             $genre->setDescription($data['description']);
 
             $this->manager->persist($genre);
+
         }
 
         $this->manager->flush();
@@ -169,21 +181,22 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
 
         $repositoryGenre = $this->manager->getRepository(Genre::class);
         $genres = $repositoryGenre->findAll();
-        $genres1 = $repositoryGenre->find(1);
-        $genres2 = $repositoryGenre->find(2);
-        $genres3 = $repositoryGenre->find(3);
-        $genres4 = $repositoryGenre->find(4);
+        $genre1 = $repositoryGenre->find(1);
+        $genre2 = $repositoryGenre->find(2);
+        $genre3 = $repositoryGenre->find(3);
+        $genre4 = $repositoryGenre->find(4);
 
         // données static
 
         $datas = [
+
             [
                 'titre' => 'Lorem ipsum dolor sit amet',
                 'anneeEdition' => 2010,
                 'nombrePages' => 100,
                 'codeIsbn' => '9785786930024',
                 'auteurs' => $auteur1,
-                'genres' => [$genres1],
+                'genres' => [$genre1],
             ],
             [
                 'titre' => 'Lorem ipsum dolor sit amet',
@@ -191,7 +204,7 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
                 'nombrePages' => 150,
                 'codeIsbn' => '9783817260935',
                 'auteurs' => $auteur2,
-                'genres' => [$genres2],
+                'genres' => [$genre2],
             ],
             [
                 'titre' => 'Lorem ipsum dolor sit amet',
@@ -199,7 +212,7 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
                 'nombrePages' => 200,
                 'codeIsbn' => '9782020493727',
                 'auteurs' => $auteur3,
-                'genres' => [$genres3],
+                'genres' => [$genre3],
             ],
             [
                 'titre' => 'Lorem ipsum dolor sit amet',
@@ -207,9 +220,11 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
                 'nombrePages' => 250,
                 'codeIsbn' => '9794059561353',
                 'auteurs' => $auteur4,
-                'genres' => [$genres4],
+                'genres' => [$genre4],
             ],
+
         ];
+
         foreach($datas as $data) {
             $livre = new Livre();
             $livre->setTitre($data['titre']);
@@ -260,6 +275,7 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
         // données static
 
         $datas = [
+
             [
                 'email' => 'foo.foo@example.com',
                 'roles' => ['ROLE_USER'],
@@ -289,7 +305,8 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
                 'nom' => 'baz',
                 'prenom' => 'baz',
                 'tel' => '123456789',
-            ]
+            ],
+
         ];
 
         foreach ($datas as $data) {
@@ -381,6 +398,7 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
                 'emprunteur' => $emprunteur3,
                 'livre' => $livre3,
             ],
+            
         ];
 
         foreach ($datas as $data) {
