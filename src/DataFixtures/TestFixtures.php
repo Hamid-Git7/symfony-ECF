@@ -281,6 +281,8 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
                 'roles' => ['ROLE_USER'],
                 'password' => '123',
                 'enabled' => true,
+                'createdAt' => new DateTime('2020-03-25 17:05:00'),
+
 
                 'nom' => 'foo',
                 'prenom' => 'foo',
@@ -291,6 +293,8 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
                 'roles' => ['ROLE_USER'],
                 'password' => '123',
                 'enabled' => false,
+                'createdAt' => new DateTime('2020-07-07 20:00:00'),
+
 
                 'nom' => 'bar',
                 'prenom' => 'bar',
@@ -301,6 +305,8 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
                 'roles' => ['ROLE_USER'],
                 'password' => '123',
                 'enabled' => true,
+                'createdAt' => new DateTime('2020-12-25 12:05:00'),
+
 
                 'nom' => 'baz',
                 'prenom' => 'baz',
@@ -324,6 +330,7 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
             $emprunteur->setNom($data['nom']);
             $emprunteur->setPrenom($data['prenom']);
             $emprunteur->setTel($data['tel']);
+            $emprunteur->setCreatedAt($data['createdAt']);
 
             $emprunteur->setUser($user);
 

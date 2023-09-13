@@ -68,6 +68,8 @@ class TestController extends AbstractController
         $livre2 = $livreRepository->find(2);
         $genre5 = $genreRepositoy->find(5);
         $livre123 = $livreRepository->find(123);
+        $auteurs = $auteurRepository->findAllAuteur();
+
 
 
         $newBook = new Livre();
