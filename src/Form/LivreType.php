@@ -27,6 +27,4 @@ class LivreType extends AbstractType
             'data_class' => Livre::class,
         ]);
     }
-
-
 }

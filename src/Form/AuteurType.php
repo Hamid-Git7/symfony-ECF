@@ -13,7 +13,9 @@ class AuteurType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('prenom');
+            ->add('prenom')
+
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -22,5 +24,4 @@ class AuteurType extends AbstractType
             'data_class' => Auteur::class,
         ]);
     }
-    
 }
