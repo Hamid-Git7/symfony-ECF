@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}  Hello ! {% endblock %}
+
+{% block body %}
+
+<h2>La liste des 10 derniers emprunts au niveau chronologique, triée par ordre **décroissant** de date d'emprunt (le plus récent en premier)</h2>
+
+{% for emprunt in listeDernierEmprunt %}
+
+<p> id : {{emprunt.id}}, date emprunt :  {{emprunt.dateEmprunt|date('d/m/Y')}} </p>
+
+{% endfor %}
+
+<h2>La liste des emprunts de l'emprunteur dont l'id est `2`, triée par ordre **croissant** de date d'emprunt (le plus ancien en premier) </h2>
+
+{% for emprunt in emprunteur2 %}
+
+<p> id : {{emprunt.id}}, date emprunt :  {{emprunt.dateEmprunt|date('d/m/Y')}} </p>
+
+{% endfor %}
+
+<h2>La liste des emprunts du livre dont l'id est `3`, triée par ordre **décroissant** de date d'emprunt (le plus récent en premier)</h2>
+
+{% for emprunt in emprunteur3 %}
+
+<p> id : {{emprunt.id}}, date emprunt :  {{emprunt.dateEmprunt|date('d/m/Y')}} </p>
+
+{% endfor %}
+
+<h2>La liste des 10 derniers emprunts qui ont été retournés, triée par ordre **décroissant** de date de rendretour (le plus récent en premier)</h2>
+
+{% for emprunt in emprunteurLast10 %}
+
+<p> id : {{emprunt.id}}, date emprunt :  {{emprunt.dateEmprunt|date('d/m/Y')}} </p>
+
+{% endfor %}
+
+<h2>La liste des emprunts qui n'ont pas encore été retournés (c-à-d dont la date de retour est nulle), triée par ordre **croissant** de date d'emprunt (le plus ancien en premier)</h2>
+
+{% for emprunt in findEmpruntNotReturn %}
+
+<p> id : {{ emprunt.id }}, date emprunt : {{ emprunt.dateEmprunt|date('d/m/Y') }} </p>
+
+{% endfor %}
+
+<h2>Les données de l'emprunt relié au livre dont l'id est `3`</h2>
+
+{% for emprunt in findEmpruntId3 %}
+
+<p> id : {{ emprunt.id }}, date emprunt : {{ emprunt.dateEmprunt|date('d/m/Y') }}, date retour : {{ emprunt.dateRetour|date('d/m/Y') }}, date création : {{ emprunt.createdAt|date('d/m/Y') }}, date mise à jour : {{ emprunt.updatedAt|date('d/m/Y') }}
+
+{% endfor %}
+
+{% endblock %}

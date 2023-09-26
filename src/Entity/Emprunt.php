@@ -87,4 +87,9 @@ class Emprunt
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return "id {$this->getId()}";
+    }
 }

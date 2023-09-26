@@ -6,6 +6,8 @@ use App\Entity\User;
 use App\Entity\Livre;
 use App\Entity\Auteur;
 use App\Entity\Genre;
+use App\Entity\Emprunt;
+use App\Entity\Emprunteur;
 use App\Repository\UserRepository;
 use DateTime;
 use Doctrine\ORM\Repository\RepositoryFactory;
@@ -50,8 +52,8 @@ class TestController extends AbstractController
     {
         $em = $doctrine->getManager();
         $livreRepository = $em->getRepository(Livre::class);
-        $auteurRepository= $em->getRepository(Auteur::class);
-        $genreRepositoy= $em->getRepository(Genre::class);
+        $auteurRepository = $em->getRepository(Auteur::class);
+        $genreRepositoy = $em->getRepository(Genre::class);
         // $auteurRepository = $em->getRepository(Auteur::class);
 
         $livres = $livreRepository->findAllLivre();
@@ -107,6 +109,64 @@ class TestController extends AbstractController
             'listeLivre2' => $listeLivre2,
             'livreGenre' => $livreGenre,
         ]);
-
     }
+
+
+    #[Route('/emprunt', name: 'app_test_emprunt')]
+    public function emprunt(ManagerRegistry $doctrine): Response
+    {
+        $em = $doctrine->getManager();
+        $empruntRepository = $em->getRepository(Emprunt::class);
+        $emprunteurRepository = $em->getRepository(Emprunteur::class);
+        $livreRepository = $em->getRepository(Livre::class);
+
+        $title = 'titre 123';
+
+        $value1 = 10;
+        $value = 10;
+        $value3 = 3;
+        $livreId1 = $livreRepository->find(1);
+        $emprunteurId1 = $emprunteurRepository->find(1);
+        $empruntReturn3 = $empruntRepository->find(3);
+        $emprunt42 = $empruntRepository->find(42);
+
+        $listeDernierEmprunt = $empruntRepository->findLastEmprunt($value);
+        $emprunteur2 = $empruntRepository->findEmprunt2();
+        $emprunteur3 = $empruntRepository->findEmprunt3();
+        $emprunteurLast10 = $empruntRepository->findLastEmprunt10($value1);
+        $findEmpruntNotReturn = $empruntRepository->findEmpruntNotReturn();
+        $findEmpruntId3 = $empruntRepository -> findEmpruntId3($value3);
+        
+
+        $newEmprunt = new Emprunt();
+        $newEmprunt->setDateEmprunt(new DateTime('2020-07-07 20:00:00'));
+        $newEmprunt->setDateRetour(new DateTime('2020-08-07 20:00:00'));
+        $newEmprunt->setLivre($livreId1);
+        $newEmprunt->setEmprunteur($emprunteurId1);
+
+        $em->persist($newEmprunt);
+        $em->flush();
+
+        $empruntReturn3->setDateRetour(new DateTime('01-05-2020  10:00:00'));
+
+        $em->flush();
+
+        if ($emprunt42) {
+            $em->remove($emprunt42);
+            $em->flush();
+        }
+
+        return $this->render('test/emprunt.html.twig', [
+            'controller_name' => 'TestController',
+            'title' => $title,
+            'listeDernierEmprunt' => $listeDernierEmprunt,
+            'emprunteur2' => $emprunteur2,
+            'emprunteur3' => $emprunteur3,
+            'emprunteurLast10' => $emprunteurLast10,
+            'findEmpruntNotReturn' => $findEmpruntNotReturn,
+            'findEmpruntId3' => $findEmpruntId3,
+
+        ]);
+    }
+
 }

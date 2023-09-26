@@ -92,4 +92,9 @@ class Genre
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return "(id {$this->getId()} {$this->getNom()} {$this->getDescription()} )";
+    }
 }

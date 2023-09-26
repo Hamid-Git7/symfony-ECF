@@ -46,9 +46,7 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
     }
 
     public function loadAuteurs(): Void
-    {
-        //$repository = $this->manager->getRepository(Auteur::class);
-        
+    {        
         // données static
 
         $datas = [
@@ -196,7 +194,7 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
                 'nombrePages' => 100,
                 'codeIsbn' => '9785786930024',
                 'auteurs' => $auteur1,
-                'genres' => [$genre1],
+                'genre' => [$genre1],
             ],
             [
                 'titre' => 'Lorem ipsum dolor sit amet',
@@ -204,7 +202,7 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
                 'nombrePages' => 150,
                 'codeIsbn' => '9783817260935',
                 'auteurs' => $auteur2,
-                'genres' => [$genre2],
+                'genre' => [$genre2],
             ],
             [
                 'titre' => 'Lorem ipsum dolor sit amet',
@@ -212,7 +210,7 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
                 'nombrePages' => 200,
                 'codeIsbn' => '9782020493727',
                 'auteurs' => $auteur3,
-                'genres' => [$genre3],
+                'genre' => [$genre3],
             ],
             [
                 'titre' => 'Lorem ipsum dolor sit amet',
@@ -220,7 +218,7 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
                 'nombrePages' => 250,
                 'codeIsbn' => '9794059561353',
                 'auteurs' => $auteur4,
-                'genres' => [$genre4],
+                'genre' => [$genre4],
             ],
 
         ];

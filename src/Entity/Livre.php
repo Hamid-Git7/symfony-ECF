@@ -168,4 +168,10 @@ class Livre
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return "id {$this->getId()} {$this->getTitre()}";
+    }
+
 }
