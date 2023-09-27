@@ -230,7 +230,7 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
             $livre->setNombrePages($data['nombrePages']);
             $livre->setCodeIsbn($data['codeIsbn']);
             $livre->setAuteur($data['auteurs']);
-            $livre->addGenre($data['genres'][0]);
+            $livre->addGenre($data['genre'][0]);
 
 
             $this->manager->persist($livre);
