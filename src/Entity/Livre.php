@@ -9,7 +9,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+#[UniqueEntity('codeIsbn')]
 #[Gedmo\SoftDeleteable(fieldName:"deletedAt", timeAware:false, hardDelete:false)]
 #[ORM\Entity(repositoryClass: LivreRepository::class)]
 class Livre
@@ -22,15 +25,31 @@ class Livre
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 1, max: 190)]
     #[ORM\Column(length: 190)]
     private ?string $titre = null;
 
+    #[Assert\Type(
+        type: 'integer',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
     #[ORM\Column(nullable: true)]
     private ?int $anneeEdition = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Type(
+        type: 'integer',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
     #[ORM\Column]
     private ?int $nombrePages = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Isbn(
+        type: Assert\Isbn::ISBN_13,
+        message: 'This value is not valid.',
+    )]
     #[ORM\Column(length: 190, nullable: true)]
     private ?string $codeIsbn = null;
 
@@ -41,6 +60,7 @@ class Livre
     #[ORM\OneToMany(mappedBy: 'livre', targetEntity: Emprunt::class)]
     private Collection $emprunts;
 
+    #[Assert\Count(min: 1)]
     #[ORM\ManyToMany(targetEntity: Genre::class, inversedBy: 'livres')]
     private Collection $genres;
 

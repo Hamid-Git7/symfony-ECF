@@ -4,7 +4,8 @@
 
 {% block body %}
     <h1>Livre index</h1>
-
+    
+    <a href="{{ path('app_admin_livre_new') }}">Create new</a>
     <table class="table">
         <thead>
             <tr>
@@ -13,9 +14,8 @@
                 <th>AnneeEdition</th>
                 <th>NombrePages</th>
                 <th>CodeIsbn</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>DeletedAt</th>
+                <th>Nom</th>
+                <th>Prénom</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -27,9 +27,8 @@
                 <td>{{ livre.anneeEdition }}</td>
                 <td>{{ livre.nombrePages }}</td>
                 <td>{{ livre.codeIsbn }}</td>
-                <td>{{ livre.createdAt ? livre.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ livre.updatedAt ? livre.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ livre.deletedAt ? livre.deletedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ livre.auteur.nom }}</td>
+                <td>{{ livre.auteur.prenom }}</td>
                 <td>
                     <a href="{{ path('app_admin_livre_show', {'id': livre.id}) }}">show</a>
                     <a href="{{ path('app_admin_livre_edit', {'id': livre.id}) }}">edit</a>
@@ -43,5 +42,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_livre_new') }}">Create new</a>
 {% endblock %}

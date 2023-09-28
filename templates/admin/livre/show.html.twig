@@ -28,16 +28,16 @@
                 <td>{{ livre.codeIsbn }}</td>
             </tr>
             <tr>
-                <th>CreatedAt</th>
-                <td>{{ livre.createdAt ? livre.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <th>Nom</th>
+                <td>{{ livre.auteur.nom }}</td>
+            </tr>            
+            <tr>
+                <th>Prénom</th>
+                <td>{{ livre.auteur.prenom }}</td>
             </tr>
             <tr>
-                <th>UpdatedAt</th>
-                <td>{{ livre.updatedAt ? livre.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>DeletedAt</th>
-                <td>{{ livre.deletedAt ? livre.deletedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <th>Genres</th>
+                <td>{% for genre in genres %}{{ genre.nom }} {% if not loop.last %}, {% endif %} {% endfor %}</td>
             </tr>
         </tbody>
     </table>
