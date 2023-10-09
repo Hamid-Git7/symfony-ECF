@@ -30,6 +30,8 @@ class EmprunteurController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user = $emprunteur->getUser();
+            $user->setRoles(['ROLE_USER']);
             $entityManager->persist($emprunteur);
             $entityManager->flush();
 
@@ -57,6 +59,7 @@ class EmprunteurController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
             $entityManager->flush();
 
             return $this->redirectToRoute('app_admin_emprunteur_index', [], Response::HTTP_SEE_OTHER);

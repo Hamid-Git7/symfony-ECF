@@ -9,9 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[Gedmo\SoftDeleteable(fieldName:"deletedAt", timeAware:false, hardDelete:false)]
 #[ORM\Entity(repositoryClass: EmprunteurRepository::class)]
+#[Assert\Cascade]
 class Emprunteur
 {
     use TimestampableEntity;
@@ -22,16 +25,22 @@ class Emprunteur
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 190)]
     #[ORM\Column(length: 190)]
     private ?string $nom = null;
+
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 190)]
 
     #[ORM\Column(length: 190)]
     private ?string $prenom = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 190)]
     private ?string $tel = null;
 
-    #[ORM\OneToMany(mappedBy: 'emprunteur', targetEntity: Emprunt::class)]
+    #[ORM\OneToMany(mappedBy: 'emprunteur', targetEntity: Emprunt::class, cascade: ['persist', 'remove'])]
     private Collection $emprunts;
 
     #[ORM\OneToOne(inversedBy: 'emprunteur', cascade: ['persist', 'remove'])]
@@ -127,6 +136,6 @@ class Emprunteur
 
     public function __toString()
     {
-        return "{$this->getNom()} {$this->getPrenom()} {$this->getId()}{$this->getTel()}";
+        return "{$this->getNom()} {$this->getPrenom()}";
     }
 }

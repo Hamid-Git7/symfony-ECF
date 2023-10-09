@@ -13,6 +13,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[Gedmo\SoftDeleteable(fieldName:"deletedAt", timeAware:false, hardDelete:false)]
 #[ORM\Entity(repositoryClass: AuteurRepository::class)]
+#[Assert\Cascade]
+
 class Auteur
 {
     use TimestampableEntity;
@@ -33,7 +35,7 @@ class Auteur
     #[ORM\Column(length: 190)]
     private ?string $prenom = null;
 
-    #[ORM\OneToMany(mappedBy: 'auteur', targetEntity: Livre::class)]
+    #[ORM\OneToMany(mappedBy: 'auteur', targetEntity: Livre::class, cascade: ['persist', 'remove'])]
     private Collection $livres;
 
     public function __construct()
